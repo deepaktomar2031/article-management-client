@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { getAllAuthors } from '../../services/authorService'
-import { IAuthor } from '../../types'
+import { getAllAuthors } from 'src/services'
+import { IAuthor } from 'src/types'
 
 const AuthorList: React.FC = () => {
   const [authors, setAuthors] = useState<IAuthor[]>([])

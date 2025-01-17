@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ICreateAuthor } from '../types'
+import { ICreateAuthor } from 'src/types'
 
 // Create new author
 export const createAuthor = async (author: ICreateAuthor) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getAuthorById } from '../../services/authorService'
-import { IAuthor } from '../../types'
+import { getAuthorById } from 'src/services'
+import { IAuthor } from 'src/types'
 
 const AuthorDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()

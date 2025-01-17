@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { AuthorList, AuthorDetails, CreateAuthor } from './components/Author'
+import { AuthorList, AuthorDetails, CreateAuthor } from 'src/components/Author'
 
 const App: React.FC = () => {
   return (
