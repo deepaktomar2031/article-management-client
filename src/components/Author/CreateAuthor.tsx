@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { createAuthor } from '../../services/authorService'
-import '../../assets/styles/CreateAuthor.css'
+import { createAuthor } from 'src/services'
+import 'src/assets/styles/author.css'
 
 const CreateAuthor: React.FC = () => {
   const [name, setName] = useState('')
