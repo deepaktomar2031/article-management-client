@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 import { createAuthor } from 'src/services'
 import 'src/assets/styles/author.css'
 
@@ -11,7 +12,7 @@ const CreateAuthor: React.FC = () => {
     event.preventDefault()
     try {
       await createAuthor({ name, email, password })
-      alert('Author created successfully!')
+      toast.success('Author created successfully!')
       setName('')
       setEmail('')
       setPassword('')

@@ -43,8 +43,8 @@ const checkTokenValidity = (): boolean => {
     localStorage.removeItem('access_token')
     return false
   } catch (error) {
-    toast.error('Invalid session. Please log in again.')
-    console.error('Error while decoding token:', error)
+    toast.error('Something went wrong. Please log in again.')
+    console.error('Something went wrong:', error)
     return false
   }
 }

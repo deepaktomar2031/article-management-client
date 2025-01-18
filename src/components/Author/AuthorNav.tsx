@@ -20,16 +20,15 @@ const AuthorNav: React.FC = () => {
         >
           Author List
         </NavLink>
-        {/* <NavLink
+        <NavLink
           to="find"
           style={{ textDecoration: 'none' }}
           className={({ isActive }) => (isActive ? 'active-link' : '')}
         >
           Find Author
-        </NavLink> */}
+        </NavLink>
       </nav>
 
-      {/* Nested Routes */}
       <Outlet />
     </div>
   )
