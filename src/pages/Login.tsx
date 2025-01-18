@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { loginUser } from 'src/services'
+import { setToken, loginUser } from 'src/services'
 import { AuthBody } from 'src/types'
 
 const Login: React.FC = () => {
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
       const token = await loginUser(authBody)
 
       if (token) {
-        localStorage.setItem('access_token', token)
+        setToken(token)
         navigate('/home')
       } else {
         setError('Invalid email or password. Please try again.')

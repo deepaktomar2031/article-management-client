@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link, Navigate } from 'react-router-dom'
+import { getToken } from 'src/services'
 import 'src/assets/styles/dashboard.css'
 
 const Dashboard: React.FC = () => {
-  const token = localStorage.getItem('access_token')
+  const token = getToken()
 
   if (token) {
     return <Navigate to="/home" />
