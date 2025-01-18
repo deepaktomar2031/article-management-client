@@ -14,12 +14,15 @@ const Login: React.FC = () => {
     try {
       const authBody: AuthBody = { email, password }
       const token = await loginUser(authBody)
-      console.log('Token:', token)
 
-      localStorage.setItem('access_token', token)
-      navigate('/dashboard')
+      if (token) {
+        localStorage.setItem('access_token', token)
+        navigate('/home')
+      }
+
+      setError('Invalid email or password. Please try again.')
     } catch (error) {
-      setError('Invalid credentials')
+      setError('Something went wrong. Please try again.')
     }
   }
 

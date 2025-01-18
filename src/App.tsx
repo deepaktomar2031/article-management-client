@@ -1,26 +1,26 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Login from './pages/Login'
-import { CreateAuthor, AuthorList, AuthorDetails } from 'src/components/Author'
-// import ArticleList from './pages/ArticleList' // To be created
-// import CommentList from './pages/CommentList' // To be created
-import PrivateRoute from './components/PrivateRoute'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { Dashboard, Login, Home } from 'src/pages'
+import { CreateAuthor, AuthorList, AuthorDetails, AuthorNav } from 'src/components/Author'
+import PrivateRoute from 'src/components/PrivateRoute'
+import { ToastWrapper } from 'src/components/Toast'
 
 const App: React.FC = () => {
   return (
     <Router>
+      <ToastWrapper />
       <Routes>
-        {/* Public Routes */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<CreateAuthor />} />
 
-        {/* Private Routes */}
-        <Route path="/authors" element={<PrivateRoute element={<AuthorList />} />} />
-        <Route path="/author/:id" element={<PrivateRoute element={<AuthorDetails />} />} />
-        {/* <Route path="/articles" element={<PrivateRoute element={<ArticleList />} />} />
-        <Route path="/comments" element={<PrivateRoute element={<CommentList />} />} /> */}
+        <Route path="/home" element={<PrivateRoute element={<Home />} />} />
+        <Route path="/home/author" element={<PrivateRoute element={<AuthorNav />} />}>
+          <Route path="create" element={<CreateAuthor />} />
+          <Route path="list" element={<AuthorList />} />
+          <Route path="find" element={<AuthorDetails />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   )
