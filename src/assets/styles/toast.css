@@ -1,0 +1,20 @@
+.Toastify__toast {
+  font-family: 'Arial', sans-serif;
+  border-radius: 5px;
+}
+
+.Toastify__toast--success {
+  background-color: #4caf50;
+}
+
+.Toastify__toast--error {
+  background-color: #f44336;
+}
+
+.Toastify__toast--info {
+  background-color: #2196f3;
+}
+
+.Toastify__toast--warning {
+  background-color: #ff9800;
+}

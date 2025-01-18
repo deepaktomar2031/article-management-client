@@ -1,3 +1,5 @@
 export { default as CreateAuthor } from './CreateAuthor'
 export { default as AuthorList } from './AuthorList'
 export { default as AuthorDetails } from './AuthorDetails'
+export { default as AuthorModule } from './AuthorModule'
+export { default as AuthorNav } from './AuthorNav'
