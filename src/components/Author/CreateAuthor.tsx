@@ -1,71 +1,72 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 import { createAuthor } from 'src/services'
 import 'src/assets/styles/author.css'
 
 const CreateAuthor: React.FC = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({ ...prevData, [name]: value }))
+  }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     try {
-      await createAuthor({ name, email, password })
-      alert('Author created successfully!')
-      setName('')
-      setEmail('')
-      setPassword('')
+      await createAuthor(formData)
+      toast.success('Author created successfully!')
+      setFormData({ name: '', email: '', password: '' })
     } catch (error) {
       console.error('Error creating author:', error)
     }
   }
 
+  const formFields = [
+    {
+      id: 'name',
+      label: 'Name',
+      type: 'text',
+      value: formData.name,
+      placeholder: "Enter author's name",
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      type: 'email',
+      value: formData.email,
+      placeholder: "Enter author's email",
+    },
+    {
+      id: 'password',
+      label: 'Password',
+      type: 'password',
+      value: formData.password,
+      placeholder: 'Enter password',
+    },
+  ]
+
   return (
     <div className="form-container">
       <h2>Create New Author</h2>
       <form onSubmit={handleSubmit} className="author-form">
-        <div className="form-group">
-          <label htmlFor="name" className="form-label">
-            Name:
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="form-input"
-            placeholder="Enter author's name"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">
-            Email:
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="form-input"
-            placeholder="Enter author's email"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password" className="form-label">
-            Password:
-          </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="form-input"
-            placeholder="Enter password"
-          />
-        </div>
+        {formFields.map(({ id, label, type, value, placeholder }) => (
+          <div className="form-group" key={id}>
+            <label htmlFor={id} className="form-label">
+              {label}:
+            </label>
+            <input
+              id={id}
+              type={type}
+              name={id}
+              value={value}
+              onChange={handleChange}
+              required
+              className="form-input"
+              placeholder={placeholder}
+            />
+          </div>
+        ))}
         <button type="submit" className="submit-btn">
           Create Author
         </button>
