@@ -18,6 +18,21 @@ const AuthorList: React.FC = () => {
     fetchAuthors()
   }, [])
 
+  const renderAuthorRows = (author: IAuthor) => {
+    const authorData = [
+      { label: 'ID', value: author.id },
+      { label: 'Name', value: author.name },
+      { label: 'Email', value: author.email },
+      { label: 'Role', value: author.isAdmin ? 'Admin' : 'User' },
+    ]
+
+    return authorData.map((item, index) => (
+      <td key={index} style={{ border: '3px solid black', padding: '8px' }}>
+        {item.value}
+      </td>
+    ))
+  }
+
   return (
     <div>
       <h2>Author List</h2>
@@ -32,14 +47,7 @@ const AuthorList: React.FC = () => {
         </thead>
         <tbody>
           {authors.map((author) => (
-            <tr key={author.id}>
-              <td style={{ border: '3px solid black', padding: '8px' }}>{author.id}</td>
-              <td style={{ border: '3px solid black', padding: '8px' }}>{author.name}</td>
-              <td style={{ border: '3px solid black', padding: '8px' }}>{author.email}</td>
-              <td style={{ border: '3px solid black', padding: '8px' }}>
-                {author.isAdmin ? 'Admin' : 'User'}
-              </td>
-            </tr>
+            <tr key={author.id}>{renderAuthorRows(author)}</tr>
           ))}
         </tbody>
       </table>

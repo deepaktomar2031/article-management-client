@@ -38,6 +38,24 @@ const AuthorDetails: React.FC = () => {
     }
   }
 
+  // Dynamically generate rows for the author details
+  const renderAuthorDetails = (author: IAuthor) => {
+    const authorData = [
+      { label: 'Name', value: author.name },
+      { label: 'Email', value: author.email },
+      { label: 'Admin', value: author.isAdmin ? 'Yes' : 'No' },
+    ]
+
+    return authorData.map((item, index) => (
+      <tr key={index}>
+        <td style={{ border: '3px solid black', padding: '8px', fontWeight: 'bold' }}>
+          {item.label}:
+        </td>
+        <td style={{ border: '3px solid black', padding: '8px' }}>{item.value}</td>
+      </tr>
+    ))
+  }
+
   return (
     <div>
       <h2>Find Author by ID</h2>
@@ -61,28 +79,7 @@ const AuthorDetails: React.FC = () => {
         <div>
           <h3>Author Details</h3>
           <table style={{ border: '3px solid black', width: '100%', borderCollapse: 'collapse' }}>
-            <tbody>
-              <tr>
-                <td style={{ border: '3px solid black', padding: '8px', fontWeight: 'bold' }}>
-                  Name:
-                </td>
-                <td style={{ border: '3px solid black', padding: '8px' }}>{author.name}</td>
-              </tr>
-              <tr>
-                <td style={{ border: '3px solid black', padding: '8px', fontWeight: 'bold' }}>
-                  Email:
-                </td>
-                <td style={{ border: '3px solid black', padding: '8px' }}>{author.email}</td>
-              </tr>
-              <tr>
-                <td style={{ border: '3px solid black', padding: '8px', fontWeight: 'bold' }}>
-                  Admin:
-                </td>
-                <td style={{ border: '3px solid black', padding: '8px' }}>
-                  {author.isAdmin ? 'Yes' : 'No'}
-                </td>
-              </tr>
-            </tbody>
+            <tbody>{renderAuthorDetails(author)}</tbody>
           </table>
         </div>
       )}
