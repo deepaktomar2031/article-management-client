@@ -60,6 +60,7 @@ const AuthorDetails: React.FC = () => {
             value={id}
             onChange={handleInputChange}
             placeholder="Enter author ID"
+            required
           />
         </div>
         <button type="submit">Find Author</button>

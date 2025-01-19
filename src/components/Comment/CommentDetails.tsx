@@ -66,6 +66,7 @@ const CommentDetails: React.FC = () => {
             value={id}
             onChange={handleInputChange}
             placeholder="Enter comment ID"
+            required
           />
         </div>
         <button type="submit">Find Comment</button>
