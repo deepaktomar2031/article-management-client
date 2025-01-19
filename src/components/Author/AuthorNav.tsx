@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { Logout } from 'src/components/Logout'
+import { NavigateButton, Logout } from 'src/components/Common'
 
 const navLinks = [
   { to: 'create', label: 'Create Author' },
@@ -25,6 +25,7 @@ const AuthorNav: React.FC = () => {
         ))}
       </nav>
       <Outlet />
+      <NavigateButton />
       <Logout />
     </div>
   )

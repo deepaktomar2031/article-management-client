@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Logout } from 'src/components/Logout'
+import { Logout } from 'src/components/Common'
 
 const Home: React.FC = () => {
   const links = [
