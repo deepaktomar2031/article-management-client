@@ -17,11 +17,6 @@ const AuthorDetails: React.FC = () => {
     setError('')
     setAuthor(null)
 
-    if (!id.trim()) {
-      toast.error('Please enter an author ID.')
-      return
-    }
-
     if (!/^\d+$/.test(id)) {
       toast.error('Author ID must be a valid number.')
       return
@@ -67,7 +62,7 @@ const AuthorDetails: React.FC = () => {
         <div>
           <label htmlFor="authorId">Author ID:</label>
           <input
-            type="text"
+            type="number"
             id="authorId"
             value={id}
             onChange={handleInputChange}

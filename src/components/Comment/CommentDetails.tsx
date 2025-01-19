@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { getArticleById } from 'src/services'
-import { IArticle } from 'src/types'
+import { getCommentById } from 'src/services'
+import { IComment } from 'src/types'
 
-const ArticleDetails: React.FC = () => {
+const CommentDetails: React.FC = () => {
   const [id, setId] = useState<string>('')
-  const [article, setArticle] = useState<IArticle | null>(null)
+  const [comment, setComment] = useState<IComment | null>(null)
   const [error, setError] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,39 +15,39 @@ const ArticleDetails: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    setArticle(null)
+    setComment(null)
 
     if (!/^\d+$/.test(id)) {
-      toast.error('Article ID must be a valid number.')
+      toast.error('Comment ID must be a valid number.')
       return
     }
 
     try {
-      const data = await getArticleById(Number(id))
+      const data = await getCommentById(Number(id))
       if (data) {
-        setArticle(data)
+        setComment(data)
       } else {
-        setError('No article found with this ID.')
+        setError('No comment found with this ID.')
       }
     } catch (error: any) {
       if (error.response && error.response.status === 404) {
-        toast.error('No article found with this ID.')
+        toast.error('No comment found with this ID.')
       } else {
-        setError('Error fetching article details.')
+        setError('Error fetching comment details.')
       }
     }
   }
 
-  const renderArticleDetails = (article: IArticle) => {
-    const articleData = [
-      { label: 'Id', value: article.id },
-      { label: 'Title', value: article.title },
-      { label: 'Content', value: article.content },
-      { label: 'Author ID', value: article.authorId },
-      { label: 'Created At', value: new Date(article.createdAt).toLocaleString() },
+  const renderCommentDetails = (comment: IComment) => {
+    const commentData = [
+      { label: 'Id', value: comment.id },
+      { label: 'Author ID', value: comment.authorId },
+      { label: 'Article ID', value: comment.articleId },
+      { label: 'Content', value: comment.content },
+      { label: 'Created At', value: new Date(comment.createdAt).toLocaleString() },
     ]
 
-    return articleData.map((item, index) => (
+    return commentData.map((item, index) => (
       <tr key={index}>
         <td style={{ border: '3px solid black', padding: '8px', fontWeight: 'bold' }}>
           {item.label}:
@@ -59,28 +59,28 @@ const ArticleDetails: React.FC = () => {
 
   return (
     <div>
-      <h2>Find Article by ID</h2>
+      <h2>Find Comment by ID</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="articleId">Article ID:</label>
+          <label htmlFor="commentId">Comment ID:</label>
           <input
             type="number"
-            id="articleId"
+            id="commentId"
             value={id}
             onChange={handleInputChange}
-            placeholder="Enter article ID"
+            placeholder="Enter comment ID"
           />
         </div>
-        <button type="submit">Find Article</button>
+        <button type="submit">Find Comment</button>
       </form>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {article && (
+      {comment && (
         <div>
-          <h3>Article Details</h3>
+          <h3>Comment Details</h3>
           <table style={{ border: '3px solid black', width: '100%', borderCollapse: 'collapse' }}>
-            <tbody>{renderArticleDetails(article)}</tbody>
+            <tbody>{renderCommentDetails(comment)}</tbody>
           </table>
         </div>
       )}
@@ -88,4 +88,4 @@ const ArticleDetails: React.FC = () => {
   )
 }
 
-export default ArticleDetails
+export default CommentDetails
