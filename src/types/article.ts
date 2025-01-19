@@ -3,6 +3,7 @@ export type IArticle = {
   title: string
   content: string
   authorId: number
+  favorite: boolean
   createdAt: Date
 }
 
