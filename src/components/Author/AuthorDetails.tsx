@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { getAuthorById } from 'src/services'
 import { IAuthor } from 'src/types'
+import { LogErrorMessage } from 'src/utils'
 
 const AuthorDetails: React.FC = () => {
   const [id, setId] = useState<string>('')
@@ -24,17 +25,9 @@ const AuthorDetails: React.FC = () => {
 
     try {
       const data = await getAuthorById(Number(id))
-      if (data) {
-        setAuthor(data)
-      } else {
-        setError('No author found with this ID.')
-      }
-    } catch (error: any) {
-      if (error.response && error.response.status === 404) {
-        toast.error('No author found with this ID.')
-      } else {
-        setError('Error fetching author details.')
-      }
+      if (data) setAuthor(data)
+    } catch (error: unknown) {
+      LogErrorMessage(error)
     }
   }
 

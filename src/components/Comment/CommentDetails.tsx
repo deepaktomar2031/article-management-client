@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { getCommentById } from 'src/services'
 import { IComment } from 'src/types'
+import { LogErrorMessage } from 'src/utils'
 
 const CommentDetails: React.FC = () => {
   const [id, setId] = useState<string>('')
@@ -29,12 +30,8 @@ const CommentDetails: React.FC = () => {
       } else {
         setError('No comment found with this ID.')
       }
-    } catch (error: any) {
-      if (error.response && error.response.status === 404) {
-        toast.error('No comment found with this ID.')
-      } else {
-        setError('Error fetching comment details.')
-      }
+    } catch (error: unknown) {
+      LogErrorMessage(error)
     }
   }
 

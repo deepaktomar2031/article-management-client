@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { getAllComments } from 'src/services'
 import { IComment } from 'src/types'
+import { LogErrorMessage } from 'src/utils'
 
 const CommentList: React.FC = () => {
   const [Comments, setComments] = useState<IComment[]>([])
@@ -15,12 +16,8 @@ const CommentList: React.FC = () => {
         } else {
           toast.error('No comment found.')
         }
-      } catch (error: any) {
-        if (error.response && error.response.status === 404) {
-          toast.error('No comment found.')
-        } else {
-          toast.error('Error fetching article details.')
-        }
+      } catch (error: unknown) {
+        LogErrorMessage(error)
       }
     }
 

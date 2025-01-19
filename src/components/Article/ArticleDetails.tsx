@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { getArticleById } from 'src/services'
 import { IArticle } from 'src/types'
+import { LogErrorMessage } from 'src/utils'
 
 const ArticleDetails: React.FC = () => {
   const [id, setId] = useState<string>('')
@@ -27,14 +28,10 @@ const ArticleDetails: React.FC = () => {
       if (data) {
         setArticle(data)
       } else {
-        setError('No article found with this ID.')
-      }
-    } catch (error: any) {
-      if (error.response && error.response.status === 404) {
         toast.error('No article found with this ID.')
-      } else {
-        setError('Error fetching article details.')
       }
+    } catch (error: unknown) {
+      LogErrorMessage(error)
     }
   }
 

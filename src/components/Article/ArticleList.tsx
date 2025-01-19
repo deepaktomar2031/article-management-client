@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { getAllArticles } from 'src/services'
 import { IArticle } from 'src/types'
+import { LogErrorMessage } from 'src/utils'
 
 const ArticleList: React.FC = () => {
   const [articles, setArticles] = useState<IArticle[]>([])
@@ -9,9 +11,13 @@ const ArticleList: React.FC = () => {
     const fetchArticles = async () => {
       try {
         const data = await getAllArticles()
-        setArticles(data)
-      } catch (error) {
-        console.error('Error fetching articles:', error)
+        if (data) {
+          setArticles(data)
+        } else {
+          toast.error('No entry found.')
+        }
+      } catch (error: unknown) {
+        LogErrorMessage(error)
       }
     }
 

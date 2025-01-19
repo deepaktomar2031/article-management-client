@@ -8,6 +8,35 @@ import PrivateRoute from 'src/components/PrivateRoute'
 import { ToastWrapper } from 'src/components/Toast'
 
 const App: React.FC = () => {
+  const moduleRoutes = [
+    {
+      path: 'author',
+      nav: <AuthorNav />,
+      routes: [
+        { path: 'list', element: <AuthorList /> },
+        { path: 'find', element: <AuthorDetails /> },
+      ],
+    },
+    {
+      path: 'article',
+      nav: <ArticleNav />,
+      routes: [
+        { path: 'create', element: <CreateArticle /> },
+        { path: 'list', element: <ArticleList /> },
+        { path: 'find', element: <ArticleDetails /> },
+      ],
+    },
+    {
+      path: 'comment',
+      nav: <CommentNav />,
+      routes: [
+        { path: 'create', element: <CreateComment /> },
+        { path: 'list', element: <CommentList /> },
+        { path: 'find', element: <CommentDetails /> },
+      ],
+    },
+  ]
+
   return (
     <Router>
       <ToastWrapper />
@@ -17,22 +46,13 @@ const App: React.FC = () => {
         <Route path="/signup" element={<CreateAuthor />} />
 
         <Route path="/home" element={<PrivateRoute element={<Home />} />} />
-        <Route path="/home/author" element={<PrivateRoute element={<AuthorNav />} />}>
-          <Route path="list" element={<AuthorList />} />
-          <Route path="find" element={<AuthorDetails />} />
-        </Route>
-
-        <Route path="/home/article" element={<PrivateRoute element={<ArticleNav />} />}>
-          <Route path="create" element={<CreateArticle />} />
-          <Route path="list" element={<ArticleList />} />
-          <Route path="find" element={<ArticleDetails />} />
-        </Route>
-
-        <Route path="/home/comment" element={<PrivateRoute element={<CommentNav />} />}>
-          <Route path="create" element={<CreateComment />} />
-          <Route path="list" element={<CommentList />} />
-          <Route path="find" element={<CommentDetails />} />
-        </Route>
+        {moduleRoutes.map(({ path, nav, routes }) => (
+          <Route key={path} path={`/home/${path}`} element={<PrivateRoute element={nav} />}>
+            {routes.map(({ path: subPath, element }) => (
+              <Route key={subPath} path={subPath} element={element} />
+            ))}
+          </Route>
+        ))}
 
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
