@@ -18,3 +18,10 @@ export const getArticleById = async (id: number) => {
   const response = await apiClient().get(`/article/${id}`)
   return response.data
 }
+
+// Mark/unmark an article as favorite
+export const toggleFavorite = async (id: number) => {
+  console.log('id', id)
+  const response = await apiClient().put(`/article/${id}/favorite`)
+  return response.data
+}

@@ -36,6 +36,7 @@ const ArticleDetails: React.FC = () => {
       { label: 'Title', value: article.title },
       { label: 'Content', value: article.content },
       { label: 'Author ID', value: article.authorId },
+      { label: 'Favorite', value: article.favorite ? 'Yes' : 'No' },
       { label: 'Created At', value: new Date(article.createdAt).toLocaleString() },
     ]
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { getAllArticles } from 'src/services'
+import { getAllArticles, toggleFavorite } from 'src/services'
 import { IArticle } from 'src/types'
 import { LogErrorMessage } from 'src/utils'
 
@@ -14,7 +14,7 @@ const ArticleList: React.FC = () => {
         if (data) {
           setArticles(data)
         } else {
-          toast.error('No entry found.')
+          toast.error('No articles found.')
         }
       } catch (error: unknown) {
         LogErrorMessage(error)
@@ -24,10 +24,29 @@ const ArticleList: React.FC = () => {
     fetchArticles()
   }, [])
 
-  const articleHeaders = ['ID', 'Title', 'Content', 'Author ID', 'Created At']
+  const handleFavoriteToggle = async (articleId: number) => {
+    try {
+      const { message } = await toggleFavorite(articleId)
+      toast.success(message)
+      setArticles((prevArticles) =>
+        prevArticles.map((article) =>
+          article.id === articleId ? { ...article, favorite: !article.favorite } : article
+        )
+      )
+    } catch (error: unknown) {
+      LogErrorMessage(error)
+    }
+  }
+
+  const articleHeaders = ['Favorite', 'ID', 'Title', 'Content', 'Author ID', 'Created At']
 
   const renderArticleRows = (article: IArticle) => {
     const articleValues = [
+      <input
+        type="checkbox"
+        checked={article.favorite}
+        onChange={() => handleFavoriteToggle(article.id)}
+      />,
       article.id,
       article.title,
       article.content,
