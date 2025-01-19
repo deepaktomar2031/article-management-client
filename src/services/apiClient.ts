@@ -1,11 +1,9 @@
-import axios, { AxiosInstance } from 'axios'
+import axios from 'axios'
 import { checkTokenValidity, getToken, removeToken } from 'src/services'
 import { API_BASE_URL } from 'src/utils'
 
-let apiClient: AxiosInstance | null = null
-
 const createApiClient = () => {
-  const authtoken = getToken()
+  const authtoken: string | null = getToken()
 
   const instance = axios.create({
     baseURL: API_BASE_URL,
@@ -33,10 +31,7 @@ const createApiClient = () => {
 }
 
 const getApiClient = () => {
-  if (!apiClient) {
-    apiClient = createApiClient()
-  }
-  return apiClient
+  return createApiClient()
 }
 
 export default getApiClient
