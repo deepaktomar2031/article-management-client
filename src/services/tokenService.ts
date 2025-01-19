@@ -12,7 +12,7 @@ export const getToken = (): string | null => {
 }
 
 export const checkTokenValidity = (): boolean => {
-  const token = getToken()
+  const token: string | null = getToken()
   if (!token) {
     toast.info('Please log in to access this page.')
     return false

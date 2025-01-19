@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
   const [isValid, setIsValid] = useState<boolean | null>(null)
 
   useEffect(() => {
-    const tokenValidity = checkTokenValidity()
+    const tokenValidity: boolean = checkTokenValidity()
     setIsValid(tokenValidity)
   }, [])
 

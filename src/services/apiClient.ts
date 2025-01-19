@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from 'axios'
-import { toast } from 'react-toastify'
 import { checkTokenValidity, getToken, removeToken } from 'src/services'
 import { API_BASE_URL } from 'src/utils'
 
@@ -16,12 +15,10 @@ const createApiClient = () => {
 
   instance.interceptors.request.use(
     (config) => {
-      const isValid = checkTokenValidity()
-      console.log('isValid', isValid)
+      const isValid: boolean = checkTokenValidity()
 
       if (!isValid) {
         removeToken()
-        toast.info('Please log in to access this page.')
         window.location.href = '/dashboard'
         return Promise.reject(new Error('Token is invalid'))
       }

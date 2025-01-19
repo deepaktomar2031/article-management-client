@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import { getToken } from 'src/services'
+import { checkTokenValidity } from 'src/services'
 import 'src/assets/styles/dashboard.css'
 
 const Dashboard: React.FC = () => {
-  const token = getToken()
+  const isValid: boolean = checkTokenValidity()
 
-  if (token) {
+  if (isValid) {
     return <Navigate to="/home" />
   }
 

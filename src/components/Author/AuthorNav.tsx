@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { Logout } from 'src/components/Logout'
 
 const navLinks = [
   { to: 'create', label: 'Create Author' },
@@ -23,8 +24,8 @@ const AuthorNav: React.FC = () => {
           </NavLink>
         ))}
       </nav>
-
       <Outlet />
+      <Logout />
     </div>
   )
 }

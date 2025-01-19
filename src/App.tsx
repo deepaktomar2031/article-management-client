@@ -1,10 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { Dashboard, Login, Home } from 'src/pages'
 import { CreateAuthor, AuthorList, AuthorDetails, AuthorNav } from 'src/components/Author'
 import { CreateArticle, ArticleList, ArticleDetails, ArticleNav } from 'src/components/Article'
 import { CreateComment, CommentList, CommentDetails, CommentNav } from 'src/components/Comment'
 import PrivateRoute from 'src/components/PrivateRoute'
+import { Dashboard, Login, Home } from 'src/pages'
 import { ToastWrapper } from 'src/components/Toast'
 
 const App: React.FC = () => {

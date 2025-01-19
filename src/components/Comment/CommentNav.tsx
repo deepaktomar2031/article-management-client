@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { Logout } from 'src/components/Logout'
 
 const navLinks = [
   { to: 'create', label: 'Create Comment' },
@@ -24,6 +25,7 @@ const CommentNav: React.FC = () => {
         ))}
       </nav>
       <Outlet />
+      <Logout />
     </div>
   )
 }
