@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { getAuthorById } from 'src/services'
-import { IAuthor } from 'src/types'
+import { getArticleById } from 'src/services'
+import { IArticle } from 'src/types'
 
-const AuthorDetails: React.FC = () => {
+const ArticleDetails: React.FC = () => {
   const [id, setId] = useState<string>('')
-  const [author, setAuthor] = useState<IAuthor | null>(null)
+  const [article, setArticle] = useState<IArticle | null>(null)
   const [error, setError] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,42 +15,44 @@ const AuthorDetails: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    setAuthor(null)
+    setArticle(null)
 
     if (!id.trim()) {
-      toast.error('Please enter an author ID.')
+      toast.error('Please enter an article ID.')
       return
     }
 
     if (!/^\d+$/.test(id)) {
-      toast.error('Author ID must be a valid number.')
+      toast.error('Article ID must be a valid number.')
       return
     }
 
     try {
-      const data = await getAuthorById(Number(id))
+      const data = await getArticleById(Number(id))
       if (data) {
-        setAuthor(data)
+        setArticle(data)
       } else {
-        setError('No author found with this ID.')
+        setError('No article found with this ID.')
       }
     } catch (error: any) {
       if (error.response && error.response.status === 404) {
-        toast.error('No author found with this ID.')
+        toast.error('No article found with this ID.')
       } else {
-        setError('Error fetching author details.')
+        setError('Error fetching article details.')
       }
     }
   }
 
-  const renderAuthorDetails = (author: IAuthor) => {
-    const authorData = [
-      { label: 'Name', value: author.name },
-      { label: 'Email', value: author.email },
-      { label: 'Admin', value: author.isAdmin ? 'Yes' : 'No' },
+  const renderArticleDetails = (article: IArticle) => {
+    const articleData = [
+      { label: 'Id', value: article.id },
+      { label: 'Title', value: article.title },
+      { label: 'Content', value: article.content },
+      { label: 'Author ID', value: article.authorId },
+      { label: 'Created At', value: article.createdAt.toString() },
     ]
 
-    return authorData.map((item, index) => (
+    return articleData.map((item, index) => (
       <tr key={index}>
         <td style={{ border: '3px solid black', padding: '8px', fontWeight: 'bold' }}>
           {item.label}:
@@ -62,28 +64,28 @@ const AuthorDetails: React.FC = () => {
 
   return (
     <div>
-      <h2>Find Author by ID</h2>
+      <h2>Find Article by ID</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="authorId">Author ID:</label>
+          <label htmlFor="articleId">Article ID:</label>
           <input
             type="text"
-            id="authorId"
+            id="articleId"
             value={id}
             onChange={handleInputChange}
-            placeholder="Enter author ID"
+            placeholder="Enter article ID"
           />
         </div>
-        <button type="submit">Find Author</button>
+        <button type="submit">Find Article</button>
       </form>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {author && (
+      {article && (
         <div>
-          <h3>Author Details</h3>
+          <h3>Article Details</h3>
           <table style={{ border: '3px solid black', width: '100%', borderCollapse: 'collapse' }}>
-            <tbody>{renderAuthorDetails(author)}</tbody>
+            <tbody>{renderArticleDetails(article)}</tbody>
           </table>
         </div>
       )}
@@ -91,4 +93,4 @@ const AuthorDetails: React.FC = () => {
   )
 }
 
-export default AuthorDetails
+export default ArticleDetails
