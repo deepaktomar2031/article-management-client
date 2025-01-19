@@ -14,10 +14,10 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<CreateAuthor />} />
 
         <Route path="/home" element={<PrivateRoute element={<Home />} />} />
         <Route path="/home/author" element={<PrivateRoute element={<AuthorNav />} />}>
-          <Route path="create" element={<CreateAuthor />} />
           <Route path="list" element={<AuthorList />} />
           <Route path="find" element={<AuthorDetails />} />
         </Route>
