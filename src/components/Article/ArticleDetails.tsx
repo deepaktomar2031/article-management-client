@@ -18,11 +18,6 @@ const ArticleDetails: React.FC = () => {
     setError('')
     setArticle(null)
 
-    if (!/^\d+$/.test(id)) {
-      toast.error('Article ID must be a valid number.')
-      return
-    }
-
     try {
       const data = await getArticleById(Number(id))
       if (data) {
@@ -66,6 +61,7 @@ const ArticleDetails: React.FC = () => {
             value={id}
             onChange={handleInputChange}
             placeholder="Enter article ID"
+            required
           />
         </div>
         <button type="submit">Find Article</button>

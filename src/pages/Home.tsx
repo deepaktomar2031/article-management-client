@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Logout } from 'src/components/Common'
 
 const Home: React.FC = () => {
   const links = [
@@ -18,6 +19,8 @@ const Home: React.FC = () => {
           </Link>
         ))}
       </div>
+      <br />
+      <Logout />
     </div>
   )
 }
