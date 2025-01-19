@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container">
-      <h1>Welcome to Article Management System</h1>
+      <h1>Article Management System</h1>
       <p>Please log in or sign up to continue.</p>
       <div>
         <Link to="/login">Login</Link> | <Link to="/signup">Signup</Link>
