@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { createComment } from 'src/services'
-import 'src/assets/styles/comment.css'
+import 'src/assets/styles/common.css'
 
 const CreateComment: React.FC = () => {
   const [formData, setFormData] = useState({ articleId: '', content: '' })

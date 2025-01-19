@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { createArticle } from 'src/services'
-import 'src/assets/styles/article.css'
+import 'src/assets/styles/common.css'
 
 const CreateArticle: React.FC = () => {
   const [formData, setFormData] = useState({ title: '', content: '' })
