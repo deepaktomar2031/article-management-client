@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { getArticleById } from 'src/services'
 import { IArticle } from 'src/types'
+import { LogErrorMessage } from 'src/utils'
 
 const ArticleDetails: React.FC = () => {
   const [id, setId] = useState<string>('')
@@ -17,11 +18,6 @@ const ArticleDetails: React.FC = () => {
     setError('')
     setArticle(null)
 
-    if (!id.trim()) {
-      toast.error('Please enter an article ID.')
-      return
-    }
-
     if (!/^\d+$/.test(id)) {
       toast.error('Article ID must be a valid number.')
       return
@@ -32,14 +28,10 @@ const ArticleDetails: React.FC = () => {
       if (data) {
         setArticle(data)
       } else {
-        setError('No article found with this ID.')
-      }
-    } catch (error: any) {
-      if (error.response && error.response.status === 404) {
         toast.error('No article found with this ID.')
-      } else {
-        setError('Error fetching article details.')
       }
+    } catch (error: unknown) {
+      LogErrorMessage(error)
     }
   }
 
@@ -49,7 +41,7 @@ const ArticleDetails: React.FC = () => {
       { label: 'Title', value: article.title },
       { label: 'Content', value: article.content },
       { label: 'Author ID', value: article.authorId },
-      { label: 'Created At', value: article.createdAt.toString() },
+      { label: 'Created At', value: new Date(article.createdAt).toLocaleString() },
     ]
 
     return articleData.map((item, index) => (
@@ -69,7 +61,7 @@ const ArticleDetails: React.FC = () => {
         <div>
           <label htmlFor="articleId">Article ID:</label>
           <input
-            type="text"
+            type="number"
             id="articleId"
             value={id}
             onChange={handleInputChange}

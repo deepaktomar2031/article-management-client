@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { getAuthorById } from 'src/services'
-import { IAuthor } from 'src/types'
+import { getCommentById } from 'src/services'
+import { IComment } from 'src/types'
 import { LogErrorMessage } from 'src/utils'
 
-const AuthorDetails: React.FC = () => {
+const CommentDetails: React.FC = () => {
   const [id, setId] = useState<string>('')
-  const [author, setAuthor] = useState<IAuthor | null>(null)
+  const [comment, setComment] = useState<IComment | null>(null)
   const [error, setError] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,29 +16,35 @@ const AuthorDetails: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    setAuthor(null)
+    setComment(null)
 
     if (!/^\d+$/.test(id)) {
-      toast.error('Author ID must be a valid number.')
+      toast.error('Comment ID must be a valid number.')
       return
     }
 
     try {
-      const data = await getAuthorById(Number(id))
-      if (data) setAuthor(data)
+      const data = await getCommentById(Number(id))
+      if (data) {
+        setComment(data)
+      } else {
+        setError('No comment found with this ID.')
+      }
     } catch (error: unknown) {
       LogErrorMessage(error)
     }
   }
 
-  const renderAuthorDetails = (author: IAuthor) => {
-    const authorData = [
-      { label: 'Name', value: author.name },
-      { label: 'Email', value: author.email },
-      { label: 'Admin', value: author.isAdmin ? 'Yes' : 'No' },
+  const renderCommentDetails = (comment: IComment) => {
+    const commentData = [
+      { label: 'Id', value: comment.id },
+      { label: 'Author ID', value: comment.authorId },
+      { label: 'Article ID', value: comment.articleId },
+      { label: 'Content', value: comment.content },
+      { label: 'Created At', value: new Date(comment.createdAt).toLocaleString() },
     ]
 
-    return authorData.map((item, index) => (
+    return commentData.map((item, index) => (
       <tr key={index}>
         <td style={{ border: '3px solid black', padding: '8px', fontWeight: 'bold' }}>
           {item.label}:
@@ -50,28 +56,28 @@ const AuthorDetails: React.FC = () => {
 
   return (
     <div>
-      <h2>Find Author by ID</h2>
+      <h2>Find Comment by ID</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="authorId">Author ID:</label>
+          <label htmlFor="commentId">Comment ID:</label>
           <input
             type="number"
-            id="authorId"
+            id="commentId"
             value={id}
             onChange={handleInputChange}
-            placeholder="Enter author ID"
+            placeholder="Enter comment ID"
           />
         </div>
-        <button type="submit">Find Author</button>
+        <button type="submit">Find Comment</button>
       </form>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {author && (
+      {comment && (
         <div>
-          <h3>Author Details</h3>
+          <h3>Comment Details</h3>
           <table style={{ border: '3px solid black', width: '100%', borderCollapse: 'collapse' }}>
-            <tbody>{renderAuthorDetails(author)}</tbody>
+            <tbody>{renderCommentDetails(comment)}</tbody>
           </table>
         </div>
       )}
@@ -79,4 +85,4 @@ const AuthorDetails: React.FC = () => {
   )
 }
 
-export default AuthorDetails
+export default CommentDetails

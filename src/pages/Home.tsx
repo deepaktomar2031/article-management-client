@@ -5,6 +5,7 @@ const Home: React.FC = () => {
   const links = [
     { to: '/home/author', label: 'Author Management' },
     { to: '/home/article', label: 'Article Management' },
+    { to: '/home/comment', label: 'Comment Management' },
   ]
 
   return (

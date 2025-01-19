@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { getAllAuthors } from 'src/services'
 import { IAuthor } from 'src/types'
+import { LogErrorMessage } from 'src/utils'
 
 const AuthorList: React.FC = () => {
   const [authors, setAuthors] = useState<IAuthor[]>([])
@@ -9,9 +11,13 @@ const AuthorList: React.FC = () => {
     const fetchAuthors = async () => {
       try {
         const data = await getAllAuthors()
-        setAuthors(data)
-      } catch (error) {
-        console.error('Error fetching authors:', error)
+        if (data) {
+          setAuthors(data)
+        } else {
+          toast.error('No author found with this ID.')
+        }
+      } catch (error: unknown) {
+        LogErrorMessage(error)
       }
     }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { createAuthor } from 'src/services'
-import 'src/assets/styles/author.css'
+import 'src/assets/styles/common.css'
 
 const CreateAuthor: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' })
