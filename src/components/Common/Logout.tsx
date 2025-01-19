@@ -10,7 +10,12 @@ const Logout: React.FC = () => {
     navigate('/dashboard')
   }
 
-  return <button onClick={handleLogout}>Logout</button>
+  return (
+    <div>
+      <br />
+      <button onClick={handleLogout}>Logout</button>
+    </div>
+  )
 }
 
 export default Logout

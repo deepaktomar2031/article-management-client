@@ -24,18 +24,20 @@ const ArticleList: React.FC = () => {
     fetchArticles()
   }, [])
 
+  const articleHeaders = ['ID', 'Title', 'Content', 'Author ID', 'Created At']
+
   const renderArticleRows = (article: IArticle) => {
-    const articleData = [
-      { label: 'ID', value: article.id },
-      { label: 'Title', value: article.title },
-      { label: 'Content', value: article.content },
-      { label: 'Author ID', value: article.authorId },
-      { label: 'Created At', value: new Date(article.createdAt).toLocaleString() },
+    const articleValues = [
+      article.id,
+      article.title,
+      article.content,
+      article.authorId,
+      new Date(article.createdAt).toLocaleString(),
     ]
 
-    return articleData.map((item, index) => (
+    return articleValues.map((value, index) => (
       <td key={index} style={{ border: '3px solid black', padding: '8px' }}>
-        {item.value}
+        {value}
       </td>
     ))
   }
@@ -46,11 +48,11 @@ const ArticleList: React.FC = () => {
       <table style={{ border: '3px solid black', width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th style={{ border: '3px solid black', padding: '8px' }}>ID</th>
-            <th style={{ border: '3px solid black', padding: '8px' }}>Title</th>
-            <th style={{ border: '3px solid black', padding: '8px' }}>Content</th>
-            <th style={{ border: '3px solid black', padding: '8px' }}>Author ID</th>
-            <th style={{ border: '3px solid black', padding: '8px' }}>Created At</th>
+            {articleHeaders.map((header, index) => (
+              <th key={index} style={{ border: '3px solid black', padding: '8px' }}>
+                {header}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>

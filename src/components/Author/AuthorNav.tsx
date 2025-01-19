@@ -3,7 +3,6 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { NavigateButton, Logout } from 'src/components/Common'
 
 const navLinks = [
-  { to: 'create', label: 'Create Author' },
   { to: 'list', label: 'Author List' },
   { to: 'find', label: 'Find Author' },
 ]

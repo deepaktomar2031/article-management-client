@@ -8,7 +8,12 @@ const NavigateButton: React.FC = () => {
     navigate('/home')
   }
 
-  return <button onClick={handleClick}>Home</button>
+  return (
+    <div>
+      <br />
+      <button onClick={handleClick}>Home</button>
+    </div>
+  )
 }
 
 export default NavigateButton

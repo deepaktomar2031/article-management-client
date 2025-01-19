@@ -24,17 +24,14 @@ const AuthorList: React.FC = () => {
     fetchAuthors()
   }, [])
 
-  const renderAuthorRows = (author: IAuthor) => {
-    const authorData = [
-      { label: 'ID', value: author.id },
-      { label: 'Name', value: author.name },
-      { label: 'Email', value: author.email },
-      { label: 'Role', value: author.isAdmin ? 'Admin' : 'User' },
-    ]
+  const authorHeaders = ['ID', 'Name', 'Email', 'Role']
 
-    return authorData.map((item, index) => (
+  const renderAuthorRows = (author: IAuthor) => {
+    const authorValues = [author.id, author.name, author.email, author.isAdmin ? 'Admin' : 'User']
+
+    return authorValues.map((value, index) => (
       <td key={index} style={{ border: '3px solid black', padding: '8px' }}>
-        {item.value}
+        {value}
       </td>
     ))
   }
@@ -45,10 +42,11 @@ const AuthorList: React.FC = () => {
       <table style={{ border: '3px solid black', width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th style={{ border: '3px solid black', padding: '8px' }}>ID</th>
-            <th style={{ border: '3px solid black', padding: '8px' }}>Name</th>
-            <th style={{ border: '3px solid black', padding: '8px' }}>Email</th>
-            <th style={{ border: '3px solid black', padding: '8px' }}>Role</th>
+            {authorHeaders.map((header, index) => (
+              <th key={index} style={{ border: '3px solid black', padding: '8px' }}>
+                {header}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
